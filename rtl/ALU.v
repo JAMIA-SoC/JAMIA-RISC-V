@@ -1,45 +1,32 @@
-// Code your design here
-module ALU (op_1_in, op_2_in, opcode_in, result_out);
-  input [31:0] op_1_in, op_2_in;
-  input [3:0] opcode_in;
-  output signed [31:0] result_out;
-  
-  reg [6:0] funct7_in;
-  reg [2:0] funct3_in;
-  
-  parameter [3:0] ALU_ADD = 4'b0000;
-  parameter [3:0] ALU_SUB = 4'b1000;
-  parameter [3:0] ALU_SLT = 4'b0010;
-  parameter [3:0] ALU_SLTU = 4'b0011;
-  parameter [3:0] ALU_AND = 4'b0111;
-  parameter [3:0] ALU_OR = 4'b0110;
-  parameter [3:0] ALU_XOR = 4'b0100;
-  parameter [3:0] ALU_SLL = 4'b0001;
-  parameter [3:0] ALU_SRL = 4'b0101;
-  parameter [3:0] ALU_SRA = 4'b1101;
-  
-  always(*) begin
-    opcode_in = {funct7_in[5], funct3_in};
+// Shift and set unit are not working
+// To make a new one
+module ALU(
+    input [31:0] op_1_in,
+    input [31:0] op_2_in,
+    input [3:0] opcode_in,
+    output [31:0] result_out
+    );
     
-    case(opcode_in)
-      ALU_ADD : result_out = op_1_in - op_2_in;
-      ALU_SUB : result_out =  op_1_in - op_2_in;
-      ALU_SLT : result_out = 
-     
-   ALU_SLTU : result_out = 
-   ALU_AND : result_out = &(op_1_in);
-   ALU_OR : result_out = |(op_1_in);
-   ALU_XOR : result_out = ^(op_1_in);
-   ALU_SLL : result_out = op_1_in << 1;
-   ALU_SRL : result_out = op_1_in >> 1;
-   ALU_SRA : result_out = op_1_in >>> 1;
+    // Declaring reg net for storinf result in procedural block
+    reg [31:0] data_out;
     
-  
-  
-  
-  end
-  
-  
-
-
+    always @ (*)
+    begin
+        case (opcode_in)
+            4'b0000: data_out <= op_1_in + op_2_in;
+            4'b1000: data_out <= op_1_in - op_2_in;
+            4'b0010: data_out <= {32{(op_1_in < op_2_in)}};
+            4'b0011: data_out <= {32{($unsigned(op_1_in) < $unsigned(op_2_in))}};
+            4'b0111: data_out <= op_1_in & op_2_in;
+            4'b0110: data_out <= op_1_in | op_2_in;
+            4'b0100: data_out <= op_1_in ^ op_2_in;
+            4'b0001: data_out <= op_1_in <<< op_2_in;
+            4'b0101: data_out <= op_1_in >> op_2_in;
+            4'b1101: data_out <= op_1_in >>> op_2_in;
+            default: data_out <= 32'b0;
+        endcase
+    end
+    
+    assign result_out = data_out;
+    
 endmodule
