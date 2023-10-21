@@ -26,7 +26,7 @@ module Machine_Control(
     // output instruct_inc_out,
     // output mie_clear_out,
     // output mie_set_out,
-    output misaligned_exception_out,
+    // output misaligned_exception_out,
     // output set_epc_out,
     // output set_cause_out,
     output flush_out,
@@ -75,7 +75,7 @@ module Machine_Control(
     // State Machine
     // State Definition
     parameter reset         = 2'b00,
-              operating     = 2'b01,
+              operating     = 2'b01;
               // trap_taken    = 2'b10,
               // trap_return   = 2'b11;
     
@@ -86,7 +86,7 @@ module Machine_Control(
     begin
         case(curr_state)
             reset:      next_state <= operating;
-            operating:  next_state <= (trap_taken_out) ? trap_taken : (mret) ? trap_return : operating;
+            operating:  next_state <= (reset) ? reset : operating;
             // trap_taken: next_state <= operating;
             // trap_return:next_state <= operating;
             default     next_state <= operating;

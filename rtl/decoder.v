@@ -1,5 +1,5 @@
 module decoder(
-    input trap_taken_in,
+    //input trap_taken_in,
     input funct7_5_in,
     input [6:0] opcode_in,
     input [2:0] funct3_in,
@@ -112,6 +112,6 @@ module decoder(
     assign misaligned_load_out   = is_load & (mal_word | mal_half);
     assign misaligned_store_out  = is_store & (mal_word | mal_half);
     
-    assign mem_wr_req_out        = ~(mal_word | mal_half) & is_store & trap_taken_in;
+    assign mem_wr_req_out        = ~(mal_word | mal_half) & is_store /*& trap_taken_in*/;
     
 endmodule

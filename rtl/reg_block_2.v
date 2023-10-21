@@ -31,7 +31,7 @@ module reg_block_2(
   output reg [31:0] imm_reg_out
 );
     
-    always@(posedge clk_in or reset_in)
+    always@(posedge clk_in or posedge reset_in)
     begin
       
       if (reset_in)
