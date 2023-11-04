@@ -11,7 +11,7 @@ module Integer_file(
     );
     
     // Declaring Memory
-    reg [31:0]memory[4:0];
+    reg [31:0]memory[31:0];
     
     // Reg type nets
     reg [31:0] rs_1_out_net, rs_2_out_net;
@@ -22,6 +22,23 @@ module Integer_file(
     // Loop Variable
     integer i;
     
+//    always @ (posedge clk_in)
+//    begin
+//        if (rst_in)
+//        begin
+//            for (i = 0; i < 32; i = i+1)
+//                begin
+//                memory[i] <= 32'h0000_0000;
+//                end
+//        end
+//    end
+    
+//    always @ (posedge clk_in)
+//    begin
+//        rs_1_out_net <= memory[rs_1_addr_in];
+//        rs_2_out_net <= memory[rs_2_addr_in];
+//    end
+
     always @ (posedge clk_in)
     begin
         if (rst_in)
@@ -31,22 +48,19 @@ module Integer_file(
                 memory[i] <= 32'h0000_0000;
                 end
         end
-    end
-    
-    always @ (posedge clk_in)
-    begin
-        rs_1_out_net <= memory[rs_1_addr_in];
-        rs_2_out_net <= memory[rs_2_addr_in];
-    end
-    
-    always @ (posedge clk_in)
-    begin
-        if (wr_en_in)
-        memory[rd_addr_in] <= rd_in;
-    end
+        
+        else
+        begin
+            rs_1_out_net <= memory[rs_1_addr_in];
+            rs_2_out_net <= memory[rs_2_addr_in];
+            if (wr_en_in)
+                memory[rd_addr_in] <= rd_in;
+        end
+        
+   end
     
     // Simultaneous Read and Write when 
-    // (rs_1_addr_in == rd_addr_in)||(rs_1_addr_in == rd_addr_in)
+    // (rs_1_addr_in == rd_addr_in)||(rs_2_addr_in == rd_addr_in)
     assign simul_RW_1 = rs_1_addr_in == rd_addr_in;
     assign simul_RW_2 = rs_2_addr_in == rd_addr_in;
     

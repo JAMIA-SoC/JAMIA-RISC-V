@@ -182,16 +182,16 @@ module Machine_Control(
    // assign trap_taken_out = (mie_in & ip) | ecall | ebreak;
    
    // misaligned_exception_out
-   reg misaligned_exception_net;
-   always @ (posedge clk_in)
-   begin
-    if (rst_in)
-        misaligned_exception_net <= 1'b0;
-    else
-        misaligned_exception_net <= (misaligned_load_in | misaligned_instr_in | misaligned_store_in);
-   end
+//   reg misaligned_exception_net;
+//   always @ (posedge clk_in)
+//   begin
+//    if (rst_in)
+//        misaligned_exception_net <= 1'b0;
+//    else
+//        misaligned_exception_net <= (misaligned_load_in | misaligned_instr_in | misaligned_store_in);
+//   end
    
-   assign misaligned_exception_out = misaligned_exception_net;
+//   assign misaligned_exception_out = misaligned_exception_net;
    
    // i_or_e_out & cause_out[3:0]
     /* reg i_or_e_net;

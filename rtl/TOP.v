@@ -15,7 +15,7 @@ module TOP(
     // Signals for PC Mux
     wire [1:0]  pc_src;
     wire        branch_taken;
-    wire [30:0] iadder_in;
+    // wire [30:0] iadder_in;
     wire [31:0] pc;
     wire        misaligned_instr;
     wire [31:0] pc_mux;
@@ -23,7 +23,7 @@ module TOP(
     // wire        i_addr;
     
     // Signal for reg1
-    wire        pc_out_stage1;
+    wire [31:0] pc_out_stage1;
     
     // Signals for Immediate Generator
     wire [24:0] instr_imm_in;
@@ -46,7 +46,7 @@ module TOP(
     
     // Signals for wr_en_generator
     wire        flush_in;
-    wire        wr_enb_reg;
+    // wire        wr_enb_reg;
     
     // Signals for Instruction MUX
     wire [6:0]  OpCode;
@@ -98,9 +98,9 @@ module TOP(
     PC pc_uut(
         .rst_in(rst_in),
         .pc_src_in(pc_src),
-        .pc_in(pc),
+        .pc_in(pc_out_stage1),
         .branch_taken_in(branch_taken),
-        .iaddr_in(iaddr_in),
+        .iaddr_in(iadder_out[31:1]),
         .misaligned_instr_out(misaligned_instr),
         .pc_mux_out(pc_mux),
         .pc_plus_4_out(pc_plus_4),
@@ -137,7 +137,7 @@ module TOP(
         .rs2_in(rs2),
         .opcode_6_to_2_in(OpCode[6:2]),
         .funct3_in(funct3),
-        .branch_taken_out(branch_taken_out)
+        .branch_taken_out(branch_taken)
     );
     
     // Integer_file
@@ -156,7 +156,7 @@ module TOP(
     // Write_enb_generator
     Write_enb_generator Write_enb_generator_uut (
         .flush_in(flush_in),
-        .rf_wr_en_reg_in(wr_enb_reg),
+        .rf_wr_en_reg_in(rf_wr_en_reg),
         .wr_en_integer_file_out(wr_enb_int_file)
     );
     
@@ -197,17 +197,17 @@ module TOP(
     Machine_Control Machine_Control_uut (
         .clk_in(clk_in),
         .rst_in(rst_in),
-        .illegal_instr_in(illegal_instr),       // from decoder
-        .misaligned_load_in(misaligned_load),   // from decoder
-        .misaligned_instr_in(misaligned_instr), // from pc_mux
-        .misaligned_store_in(misaligned_store), // from decoder
+        .illegal_instr_in(illegal_instr),       
+        .misaligned_load_in(misaligned_load),   
+        .misaligned_instr_in(misaligned_instr), 
+        .misaligned_store_in(misaligned_store), 
         .opcode_6_to_2_in(OpCode[6:2]),
         .funct3_in(funct3),
         .funct7_in(funct7),
         .rs1_adder_in(rs1_adder),
         .rs2_adder_in(rs2_adder),
         .rd_adder_in(rd_adder),
-        .flush_out(flush),
+        .flush_out(flush_in),
         .pc_src_out(pc_src)
     );
     
@@ -218,7 +218,7 @@ module TOP(
         .rd_addr_in(rd_adder),
         .rs1_in(rs1),
         .rs2_in(rs2),
-        .pc_in(pc),
+        .pc_in(pc_mux),
         .pc_plus_4_in(pc_plus_4),
         .branch_taken_in(branch_taken),
         .iadder_in(iadder_out),
@@ -268,7 +268,7 @@ module TOP(
     
     // ALU
     ALU ALU_uut (
-        .op_1_in(rs1_reg_out),
+        .op_1_in(rs1_reg),
         .op_2_in(alu_2nd_src),
         .opcode_in(alu_opcode_reg),
         .result_out(ALU_result)

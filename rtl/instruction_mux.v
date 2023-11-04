@@ -8,7 +8,7 @@ module instruction_mux(
     output [4:0] rs2_addr_out,
     output [4:0] rd_addr_out,
     // output [11:0] csr_addr_out,
-    output [23:0] instr_31_7_out
+    output [24:0] instr_31_7_out
     );
     
     wire [31:0]flush_out = 32'h0000_0013;
