@@ -1,14 +1,14 @@
 // Shift and set unit are not working
 // To make a new one
 module ALU(
-    input [31:0] op_1_in,
-    input [31:0] op_2_in,
+    input signed[31:0] op_1_in,
+    input signed[31:0] op_2_in,
     input [3:0] opcode_in,
-    output [31:0] result_out
+    output signed[31:0] result_out
     );
     
     // Declaring reg net for storinf result in procedural block
-    reg [31:0] data_out;
+    reg signed [31:0] data_out;
     
     always @ (*)
     begin
