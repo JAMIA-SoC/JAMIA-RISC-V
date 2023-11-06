@@ -20,7 +20,7 @@ module ALU(
             4'b0111: data_out = op_1_in & op_2_in;
             4'b0110: data_out = op_1_in | op_2_in;
             4'b0100: data_out = op_1_in ^ op_2_in;
-            4'b0001: data_out = op_1_in << op_2_in; // logical left shift
+            4'b0001: data_out = op_1_in << op_2_in; // logical left shiftt
             4'b0101: data_out = op_1_in >> op_2_in;
             4'b1101: data_out = op_1_in >>> op_2_in;
             default: data_out = 32'b0;
