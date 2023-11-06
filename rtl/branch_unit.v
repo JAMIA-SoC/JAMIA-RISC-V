@@ -15,7 +15,7 @@ module branch_unit(
     begin
         if (opcode_6_to_2_in == 5'b11011)       //opcode for Jump Instructions (Unconditional jump)
         begin
-            branch_taken_net1 = 1'b1;
+            branch_taken_net1 = 1'b1;// branch to be taken
         end
         else if (opcode_6_to_2_in == 5'b11000)  //opcode for Branch Instructions (Unconditional jump)
         begin
