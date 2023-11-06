@@ -13,17 +13,17 @@ module ALU(
     always @ (*)
     begin
         case (opcode_in)
-            4'b0000: data_out <= op_1_in + op_2_in;
-            4'b1000: data_out <= op_1_in - op_2_in;
-            4'b0010: data_out <= {32{(op_1_in < op_2_in)}};
-            4'b0011: data_out <= {32{($unsigned(op_1_in) < $unsigned(op_2_in))}};
-            4'b0111: data_out <= op_1_in & op_2_in;
-            4'b0110: data_out <= op_1_in | op_2_in;
-            4'b0100: data_out <= op_1_in ^ op_2_in;
-            4'b0001: data_out <= op_1_in <<< op_2_in;
-            4'b0101: data_out <= op_1_in >> op_2_in;
-            4'b1101: data_out <= op_1_in >>> op_2_in;
-            default: data_out <= 32'b0;
+            4'b0000: data_out = op_1_in + op_2_in;
+            4'b1000: data_out = op_1_in - op_2_in;
+            4'b0010: data_out = (op_1_in < op_2_in) ? 1:0;
+            4'b0011: data_out = ($unsigned(op_1_in) < $unsigned(op_2_in) ? 1:0;
+            4'b0111: data_out = op_1_in & op_2_in;
+            4'b0110: data_out = op_1_in | op_2_in;
+            4'b0100: data_out = op_1_in ^ op_2_in;
+            4'b0001: data_out = op_1_in << op_2_in; // logical left shift
+            4'b0101: data_out = op_1_in >> op_2_in;
+            4'b1101: data_out = op_1_in >>> op_2_in;
+            default: data_out = 32'b0;
         endcase
     end
     
