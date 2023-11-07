@@ -39,6 +39,7 @@ module Integer_file(
 //        rs_2_out_net <= memory[rs_2_addr_in];
 //    end
 
+    // as WRITE  is sync. process
     always @ (posedge clk_in)
     begin
         if (rst_in)
@@ -49,15 +50,16 @@ module Integer_file(
                 end
         end
         
-        else
+        else if (wr_en_in)
+                memory[rd_addr_in] <= rd_in;
+    end
+    
+    // as READ is async. process
+    always@(*)
         begin
             rs_1_out_net <= memory[rs_1_addr_in];
             rs_2_out_net <= memory[rs_2_addr_in];
-            if (wr_en_in)
-                memory[rd_addr_in] <= rd_in;
         end
-        
-   end
     
     // Simultaneous Read and Write when 
     // (rs_1_addr_in == rd_addr_in)||(rs_2_addr_in == rd_addr_in)
