@@ -2,11 +2,11 @@
 // To make a new one
 module ALU(
     input signed[31:0] op_1_in,
-    input signed[31:0] op_2_in,
+    input signed[31:0] op_2_in, 
     input [3:0] opcode_in,
     output signed[31:0] result_out
     );
-    
+    // for signed no. case
     // Declaring reg net for storinf result in procedural block
     reg signed [31:0] data_out;
     
@@ -26,6 +26,10 @@ module ALU(
             default: data_out = 32'b0;
         endcase
     end
+    
+    assign result_out = data_out;
+    
+endmodule
     
     assign result_out = data_out;
     
