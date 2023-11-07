@@ -5,7 +5,7 @@ module ALU(
     input signed[31:0] op_2_in,
     input [3:0] opcode_in,
     output signed[31:0] result_out
-    );
+); // for signed no.
     
     // Declaring reg net for storinf result in procedural block
     reg signed [31:0] data_out;
