@@ -146,7 +146,7 @@ module TOP(
         .rst_in(rst_in),
         .rs_1_addr_in(rs1_adder),
         .rs_2_addr_in(rs2_adder),
-        .rd_addr_in(rd_adder),
+        .rd_addr_in(rd_addr_reg),
         .rd_in(wb_mux_out),
         .wr_en_in(wr_enb_int_file),
         .rs_1_out(rs1),

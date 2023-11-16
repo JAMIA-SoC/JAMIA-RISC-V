@@ -35,7 +35,7 @@ module Machine_Control(
     );
     
     // Internal logic signals
-    wire // exception,
+    wire exception,
          // ip,
          // eip,
          // tip,
@@ -46,7 +46,8 @@ module Machine_Control(
          rd_zero,
          // rs2_adder_mret,
          // rs2_adder_ebreak,
-         funct3_zero;
+         funct3_zero,
+  		 funct7_zero;
          // funct7_mret,
          // csr,
          // reg_pre_instr_inc
