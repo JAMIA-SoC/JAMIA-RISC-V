@@ -43,8 +43,8 @@ module PC (
     begin
         case (pc_src_in)
             RESET_STATE     : pc_mux_out_net = 32'h00000000;
-            // TRAP_RETURN     : pc_mux_out_net = epc_in;
-            // TRAP_TAKEN      : pc_mux_out_net = trap_address_in;
+        //  TRAP_RETURN     : pc_mux_out_net = epc_in;
+        //  TRAP_TAKEN      : pc_mux_out_net = trap_address_in;
             OPERATING_STATE : pc_mux_out_net = next_pc;
             default           pc_mux_out_net = next_pc;
         endcase
@@ -58,4 +58,4 @@ module PC (
     assign i_addr_out           = (!rst_in) ? pc_mux_out_net : 32'h00000000;
     assign misaligned_instr_out = branch_taken_in & next_pc[1];
 
-endmodule             
+endmodule

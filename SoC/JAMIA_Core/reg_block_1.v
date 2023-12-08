@@ -18,4 +18,4 @@ module reg_block_1(
    
    assign pc_out = pc_out_net;
     
-endmodule 
+endmodule

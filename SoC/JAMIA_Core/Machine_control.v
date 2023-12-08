@@ -4,17 +4,17 @@ module Machine_Control(
     // input eirq_in,
     // input tirq_in,
     // input sirq_in,
-    input illegal_instr_in,
-    input misaligned_load_in,
-    input misaligned_instr_in,
-    input misaligned_store_in,
-    input [6:2] opcode_6_to_2_in,
-    input [2:0] funct3_in,
-    input [6:0] funct7_in,
-    input [4:0] rs1_adder_in,
-    input [4:0] rs2_adder_in,
-    input [4:0] rd_adder_in,
-    // input mie_in,
+    //input illegal_instr_in,
+    //input misaligned_load_in,
+    //input misaligned_instr_in,
+    //input misaligned_store_in,
+    ///input [6:2] opcode_6_to_2_in,
+   // input [2:0] funct3_in,
+   // input [6:0] funct7_in,
+   // input [4:0] rs1_adder_in,
+   // input [4:0] rs2_adder_in,
+   // input [4:0] rd_adder_in,
+   // // input mie_in,
     // input meie_in,
     // input mtie_in,
     // input msie_in,
@@ -86,11 +86,11 @@ module Machine_Control(
     always @ (*)
     begin
         case(curr_state)
-            reset:      next_state <= operating;
-            operating:  next_state <= (reset) ? reset : operating;
+            reset:      next_state = operating;
+            operating:  next_state = (reset) ? reset : operating;
             // trap_taken: next_state <= operating;
             // trap_return:next_state <= operating;
-            default     next_state <= operating;
+            default     next_state = operating;
         endcase
     end 
     
@@ -126,8 +126,8 @@ module Machine_Control(
    begin
    case (curr_state)
     reset:          begin 
-                    pc_src_net <= 2'b00; 
-                    flush_net <= 1'b1; 
+                    pc_src_net = 2'b00; 
+                    flush_net = 1'b1; 
                     // instruct_inc_net <= 1'b0;
                     // set_epc_net <= 1'b0;
                     // set_cause_net <= 1'b0;
@@ -135,8 +135,8 @@ module Machine_Control(
                     // mie_set_net <= 1'b0;  
                     end
     operating:      begin 
-                    pc_src_net <= 2'b11; 
-                    flush_net <= 1'b0; 
+                    pc_src_net = 2'b11; 
+                    flush_net = 1'b0; 
                     // instruct_inc_net <= 1'b1;
                     // set_epc_net <= 1'b0;
                     // set_cause_net <= 1'b0;
@@ -162,8 +162,8 @@ module Machine_Control(
                     mie_set_net <= 1'b0;  
                     end */
     default:        begin 
-                    pc_src_net <= 2'b11; 
-                    flush_net <= 1'b0; 
+                    pc_src_net = 2'b11; 
+                    flush_net = 1'b0; 
                     // instruct_inc_net <= 1'b1;
                     // set_epc_net <= 1'b0;
                     // set_cause_net <= 1'b0;

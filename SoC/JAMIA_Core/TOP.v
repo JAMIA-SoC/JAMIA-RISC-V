@@ -1,5 +1,3 @@
-`timescale 1ns / 1ps
-
 module TOP(
     input clk_in,
     input rst_in,
@@ -260,9 +258,9 @@ module TOP(
     // Load Unit
     load_unit load_unit_uut (
         .dmdata_in(dmdata_in),
-        .iadder_out_1_to_0_in(iadder_out[1:0]),
-        .load_unsigned_in(load_unsigned),
-        .load_size_in(load_size),
+        .iadder_out_1_to_0_in(iadder_out_reg[1:0]),
+        .load_unsigned_in(load_unsigned_reg),
+        .load_size_in(load_size_reg),
         .lu_output_out(lu_output)
     );
     

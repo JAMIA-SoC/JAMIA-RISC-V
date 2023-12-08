@@ -19,7 +19,7 @@ module instruction_mux(
     assign rs1_addr_out      = (flush_in) ? flush_out[19:15] : instr_in[19:15];
     assign rs2_addr_out      = (flush_in) ? flush_out[24:20] : instr_in[24:20];
     assign rd_addr_out       = (flush_in) ? flush_out[11:7] : instr_in[11:7];
-    // assign csr_addr_out      = (flush_in) ? flush_out[31:20] : instr_in[31:20];
+//  assign csr_addr_out      = (flush_in) ? flush_out[31:20] : instr_in[31:20];
     assign instr_31_7_out    = (flush_in) ? flush_out[31:7] : instr_in[31:7];
    
 endmodule

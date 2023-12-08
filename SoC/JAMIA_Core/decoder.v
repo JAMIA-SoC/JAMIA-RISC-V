@@ -85,8 +85,8 @@ module decoder(
     
     // mal_word and mal_half signals
     wire mal_word, mal_half;
-    assign mal_word = (funct3_in == 3'b010) & ~iadder_out_1_to_0_in[0];
-    assign mal_half = (funct3_in == 3'b001) & ~iadder_out_1_to_0_in[0];
+    assign mal_word = (funct3_in == 3'b010) & iadder_out_1_to_0_in[1];
+    assign mal_half = (funct3_in == 3'b001) & iadder_out_1_to_0_in[0];
     
     
     // Assigning Outputs
@@ -99,9 +99,9 @@ module decoder(
     assign rf_wr_en_out         = is_lui | is_auipc | is_jalr | is_jal | is_op | is_load /*| is_csr*/ | is_op_imm;
     // assign csr_wr_en_out        = is_csr;
     
-    assign wb_mux_sel_out[0]    = is_load | is_auipc | is_jalr | is_jal;
-    assign wb_mux_sel_out[1]    = is_lui | is_auipc;
-    assign wb_mux_sel_out[2]    = /*is_csr |*/ is_jal | is_jalr;
+    assign wb_mux_sel_out[0]    = is_load | is_auipc | is_jalr | is_jal | is_branch;
+    assign wb_mux_sel_out[1]    = is_lui | is_auipc | | is_branch | ~(is_jal | is_jalr);
+    assign wb_mux_sel_out[2]    = /*is_csr |*/ is_jal | is_jalr | ~( is_load );
     
     assign imm_type_out[0]       = is_op_imm | is_load | is_jal | is_jalr | is_branch;
     assign imm_type_out[1]       = is_branch | is_store ;// | is_csr;
@@ -112,6 +112,6 @@ module decoder(
     assign misaligned_load_out   = is_load & (mal_word | mal_half);
     assign misaligned_store_out  = is_store & (mal_word | mal_half);
     
-    assign mem_wr_req_out        = ~(mal_word | mal_half) & is_store /*& trap_taken_in*/;
+  assign mem_wr_req_out        = ~(mal_word | mal_half) & is_store /*& trap_taken_in*/;
     
 endmodule

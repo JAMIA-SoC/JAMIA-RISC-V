@@ -21,28 +21,28 @@ module store_unit(
                 case (iadder_in[1:0])
                     2'b00:
                     begin
-                        mask_out <= {1'b0,1'b0,1'b0,mem_wr_req_in};
-                        data_out <= {8'b0, 8'b0, 8'b0, rs2_in[7:0]};
+                        mask_out = {1'b0,1'b0,1'b0,mem_wr_req_in};
+                        data_out = {8'b0, 8'b0, 8'b0, rs2_in[7:0]};
                     end
                     2'b01:
                     begin
-                        mask_out <= {1'b0,1'b0,mem_wr_req_in,1'b0};
-                        data_out <= {8'b0, 8'b0, rs2_in[15:8], 8'b0};
+                        mask_out = {1'b0,1'b0,mem_wr_req_in,1'b0};
+                        data_out = {8'b0, 8'b0, rs2_in[15:8], 8'b0};
                     end
                     2'b10:
                     begin
-                        mask_out <= {1'b0,mem_wr_req_in,1'b0,1'b0};
-                        data_out <= {8'b0, rs2_in[23:16], 8'b0, 8'b0};
+                        mask_out = {1'b0,mem_wr_req_in,1'b0,1'b0};
+                        data_out = {8'b0, rs2_in[23:16], 8'b0, 8'b0};
                     end
                     2'b11:
                     begin
-                        mask_out <= {mem_wr_req_in,1'b0,1'b0,1'b0};
-                        data_out <= {rs2_in[31:24], 8'b0, 8'b0, 8'b0};
+                        mask_out = {mem_wr_req_in,1'b0,1'b0,1'b0};
+                        data_out = {rs2_in[31:24], 8'b0, 8'b0, 8'b0};
                     end
                     default
                     begin
-                        mask_out <= {4{mem_wr_req_in}};
-                        data_out <= rs2_in;
+                        mask_out = {4{mem_wr_req_in}};
+                        data_out = rs2_in;
                     end
                 endcase
             end
@@ -51,25 +51,25 @@ module store_unit(
                 case (iadder_in[1])
                     1'b0: 
                     begin
-                        mask_out <= {2'b00, {2{mem_wr_req_in}}};
-                        data_out <= {16'b0, rs2_in[15:0]};
+                        mask_out = {2'b00, {2{mem_wr_req_in}}};
+                        data_out = {16'b0, rs2_in[15:0]};
                     end
                     1'b1: 
                     begin
-                        mask_out <= {{2{mem_wr_req_in}}, 2'b00};
-                        data_out <= {rs2_in[31:16], 16'b0};
+                        mask_out = {{2{mem_wr_req_in}}, 2'b00};
+                        data_out = {rs2_in[31:16], 16'b0};
                     end
                     default:
                     begin
-                        mask_out <= {4{mem_wr_req_in}};
-                        data_out <= rs2_in;
+                        mask_out = {4{mem_wr_req_in}};
+                        data_out = rs2_in;
                     end
                 endcase
             end
             default: 
             begin
-                mask_out <= {4{mem_wr_req_in}};
-                data_out <= rs2_in;
+                mask_out = {4{mem_wr_req_in}};
+                data_out = rs2_in;
             end
         endcase
     end

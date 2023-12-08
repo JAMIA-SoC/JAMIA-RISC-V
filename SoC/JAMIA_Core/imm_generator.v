@@ -28,7 +28,7 @@ module imm_generator(
             3'b011: imm_out_net = b_type;
             3'b100: imm_out_net = u_type;
             3'b101: imm_out_net = j_type;
-            // 3'b110: imm_out_net = csr_type;
+        //  3'b110: imm_out_net = csr_type;
             3'b111: imm_out_net = i_type;
             default imm_out_net = i_type;
         endcase

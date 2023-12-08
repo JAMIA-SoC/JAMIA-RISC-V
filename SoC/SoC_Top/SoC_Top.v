@@ -1,11 +1,10 @@
-`timescale 1ns / 1ps
 module SoC_Top(
     input clk,
     input rst
     );
     
     // Wire signals for connections
-    wire [31:0] dmdata_in, instr, imaddr, dmaddr, dmdata_out;
+  wire [31:0] dmdata_in, instr, imaddr, dmaddr, dmdata_out1;
     wire [3:0] dmwr_mask;
     wire dmwr_req;
     
@@ -18,7 +17,7 @@ module SoC_Top(
         .dmwr_req_out(dmwr_req),
         .imaddr_out(imaddr),
         .dmaddr_out(dmaddr),
-        .dmdata_out(dmdata_out),
+        .dmdata_out(dmdata_out1),
         .dmwr_mask_out(dmwr_mask)
     );
     
@@ -34,8 +33,8 @@ module SoC_Top(
         .clk(clk),
         .dmwr_req(dmwr_req),
         .dmwr_mask(dmwr_mask),
-        .dmdata_in(dmdata_in),
-        .dmdata_out(dmdata_out),
+        .dmdata_in(dmdata_out1),
+        .dmdata_out1(dmdata_in),
         .dmaddr(dmaddr)
     );
     
